@@ -1,0 +1,117 @@
+/* MAG colour system. Hex values are taken verbatim from the brand guidelines where
+   the guidelines are internally consistent; the four secondary swatches carry
+   copy-pasted labels in the source PDF, so their values are sampled from the
+   printed swatch itself (see readme.md → Known source discrepancies). */
+:root {
+  /* ---- Base: primary ---- */
+  --mag-black: #232323;        /* PANTONE 419 C */
+  --mag-orange: #ef6a27;       /* PANTONE 165 */
+  --mag-cool-gray: #d9d9d6;    /* PANTONE Cool Gray 1C */
+  --mag-white: #ffffff;
+
+  /* ---- Base: secondary ---- */
+  --mag-blue: #3d5265;         /* PANTONE 2965 U */
+  --mag-sky: #acc9d6;
+  --mag-forest: #2c3d2f;
+  --mag-sage: #aac1af;
+
+  /* ---- Opacity ladder (25 / 50 / 75 / 100), flattened on white ----
+     The guidelines specify each brand colour at 25%, 50%, 75% and 100%.
+     Use the -a variants when true alpha is needed over imagery. */
+  --mag-orange-75: #f38f5d;
+  --mag-orange-50: #f7b593;
+  --mag-orange-25: #fbdac9;
+  --mag-black-75: #5a5a5a;
+  --mag-black-50: #919191;
+  --mag-black-25: #c8c8c8;
+  --mag-cool-gray-75: #e2e2e0;
+  --mag-cool-gray-50: #ececeb;
+  --mag-cool-gray-25: #f5f5f4;
+  --mag-blue-75: #6e7d8c;
+  --mag-blue-50: #9ea9b2;
+  --mag-blue-25: #ced4d9;
+  --mag-sky-75: #c0d6e0;
+  --mag-sky-50: #d6e4ea;
+  --mag-sky-25: #eaf1f4;
+  --mag-forest-75: #616e63;
+  --mag-forest-50: #969e97;
+  --mag-forest-25: #cacecb;
+  --mag-sage-75: #bfd1c3;
+  --mag-sage-50: #d5e0d7;
+  --mag-sage-25: #eaefeb;
+
+  /* ---- True-alpha variants (over imagery / for scrims) ---- */
+  --mag-black-a75: rgb(35 35 35 / 0.75);
+  --mag-black-a50: rgb(35 35 35 / 0.5);
+  --mag-black-a25: rgb(35 35 35 / 0.25);
+  --mag-orange-a25: rgb(239 106 39 / 0.25);
+  --mag-white-a75: rgb(255 255 255 / 0.75);
+
+  /* ---- Semantic: text ---- */
+  --text-primary: var(--mag-black);
+  --text-secondary: var(--mag-black-75);
+  --text-tertiary: var(--mag-black-50);
+  --text-disabled: var(--mag-black-25);
+  --text-inverse: var(--mag-white);
+  --text-accent: var(--mag-orange);
+  --text-on-accent: var(--mag-white);
+  --text-link: var(--mag-orange);
+  --text-link-hover: #d75f23;
+
+  /* ---- Semantic: surface ---- */
+  --surface-page: var(--mag-white);
+  --surface-subtle: var(--mag-cool-gray-25);
+  --surface-muted: var(--mag-cool-gray-50);
+  --surface-card: var(--mag-white);
+  --surface-inverse: var(--mag-black);
+  --surface-accent: var(--mag-orange);
+  --surface-accent-subtle: var(--mag-orange-25);
+  --surface-scrim: var(--mag-black-a75);
+
+  /* ---- Semantic: border ---- */
+  --border-subtle: var(--mag-cool-gray-75);
+  --border-default: var(--mag-cool-gray);
+  --border-strong: var(--mag-black-50);
+  --border-inverse: var(--mag-black);
+  --border-accent: var(--mag-orange);
+
+  /* ---- Semantic: interactive ---- */
+  --interactive-accent: var(--mag-orange);
+  --interactive-accent-hover: #d75f23;   /* orange + 10% black */
+  --interactive-accent-press: #bf5520;   /* orange + 20% black */
+  --interactive-inverse: var(--mag-black);
+  --interactive-inverse-hover: #3a3a3a;
+  --interactive-inverse-press: #101010;
+  --interactive-ghost-hover: var(--mag-cool-gray-25);
+  --interactive-ghost-press: var(--mag-cool-gray-50);
+  --focus-ring: var(--mag-orange-a25);
+
+  /* ---- Semantic: status ----
+     The guidelines define no red or amber. Status colours are mapped onto the
+     existing secondary palette; orange doubles as attention/critical. */
+  --status-info: var(--mag-blue);
+  --status-info-subtle: var(--mag-sky-25);
+  --status-success: var(--mag-forest);
+  --status-success-subtle: var(--mag-sage-25);
+  --status-attention: var(--mag-orange);
+  --status-attention-subtle: var(--mag-orange-25);
+  --status-neutral: var(--mag-black-75);
+  --status-neutral-subtle: var(--mag-cool-gray-25);
+}
+
+/* Inverse (black) surfaces: the guidelines show the logo and type reversed out of
+   #232323. Scope this class on any dark section. */
+.mag-inverse {
+  --text-primary: var(--mag-white);
+  --text-secondary: rgb(255 255 255 / 0.75);
+  --text-tertiary: rgb(255 255 255 / 0.5);
+  --surface-page: var(--mag-black);
+  --surface-card: #2e2e2e;
+  --surface-subtle: #2e2e2e;
+  --surface-muted: #3a3a3a;
+  --border-subtle: rgb(255 255 255 / 0.14);
+  --border-default: rgb(255 255 255 / 0.22);
+  --border-strong: rgb(255 255 255 / 0.45);
+  --interactive-ghost-hover: rgb(255 255 255 / 0.08);
+  --interactive-ghost-press: rgb(255 255 255 / 0.14);
+}

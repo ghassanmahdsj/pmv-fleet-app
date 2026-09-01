@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/colors.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/typography.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/shape.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/motion.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/tokens/base.css">
+<link rel="stylesheet" href="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/styles.css">
+<script src="_ds/mag-design-system-c4748452-3f37-4db7-b0ab-5bc73485dd35/_ds_bundle.js"></script>
+<style>
+body{margin:0;background:#f0eee9;font-family:var(--font-body,system-ui),system-ui,sans-serif}
+a{color:var(--text-link,#ef6a27);text-decoration:none}
+a:hover{color:var(--text-link-hover,#d75f23)}
+.dv-turn{padding:40px 44px 32px;border-bottom:1px solid rgba(0,0,0,.08);scroll-margin-top:16px}
+.dv-thd{display:flex;align-items:baseline;gap:10px;margin:0 0 20px}
+.dv-tid{font:600 10px ui-monospace,Menlo,monospace;padding:3px 7px;background:#1a1a1a;color:#fff;border-radius:4px;text-decoration:none}
+.dv-tname{font:600 13px/1.2 system-ui,sans-serif;color:#1a1a1a}
+.dv-opts{display:flex;flex-wrap:wrap;gap:28px;align-items:flex-start}
+.dv-opt{flex:none;display:flex;flex-direction:column;gap:9px;scroll-margin-top:16px}
+.dv-oid{font:600 10.5px ui-monospace,Menlo,monospace;padding:3px 7px;background:rgba(0,0,0,.08);color:#1a1a1a;border-radius:5px;text-decoration:none}
+.dv-olabel{display:flex;align-items:baseline;gap:8px;font:400 11px/1.3 system-ui,sans-serif;color:rgba(0,0,0,.55)}
+.dv-card{max-width:100%;background:#fff;border:1px solid rgba(0,0,0,.08);overflow:hidden}
+.dv-opt:target .dv-oid{background:#ef6a27;color:#fff}
+.dv-next{margin:22px 0 0;font:12px/1.5 system-ui,sans-serif;color:rgba(0,0,0,.5)}
+</style>
+</helmet>
+
+<section class="dv-turn" id="t1">
+<div class="dv-thd"><a class="dv-tid" href="#t1">1</a><span class="dv-tname">Screen 2 — New asset request</span></div>
+<div class="dv-opts">
+
+<div class="dv-opt" id="1a">
+<div class="dv-olabel"><a class="dv-oid" href="#1a">1a</a>Desktop — 1280 px</div>
+<div class="dv-card" style="width:1280px">
+<div style="padding:56px 64px 64px; background:var(--surface-page); display:flex; flex-direction:column; gap:40px">
+
+<div style="display:flex; align-items:flex-end; justify-content:space-between; gap:32px">
+<div style="display:flex; flex-direction:column; gap:20px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.SectionTab" number="02" trail="120" hint-size="240px,32px">Asset induction</x-import>
+<h1 style="margin:0; font:var(--type-title-xl); letter-spacing:var(--tracking-title); text-transform:uppercase; color:var(--text-primary)">New asset request</h1>
+<p style="margin:0; max-width:420px; font:var(--type-body-sm); color:var(--text-secondary)">Raise a request for a new PMV asset. The request follows the induction chain from section head through to purchase order.</p>
+</div>
+<div style="display:flex; flex-direction:column; align-items:flex-end; gap:8px">
+<span style="font:var(--type-label); letter-spacing:var(--tracking-label); text-transform:uppercase; color:var(--text-tertiary)">Request</span>
+<span style="font:var(--type-title-sm); color:var(--text-primary)">AR-0142</span>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Badge" tone="accent" hint-size="120px,20px">In review</x-import>
+</div>
+</div>
+
+<div style="display:grid; grid-template-columns:1.55fr 1fr; gap:32px; align-items:start">
+
+<div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-top:2px solid var(--border-accent); padding:32px">
+<h2 style="margin:0 0 4px; font:var(--type-title-sm); text-transform:uppercase; color:var(--text-primary)">Request details</h2>
+<p style="margin:0 0 28px; font:var(--type-body-sm); color:var(--text-tertiary)">All fields are required before submission.</p>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Select" label="Asset type" required="{{ true }}" options="{{ assetTypes }}" hint-size="100%,72px"></x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Select" label="Department" required="{{ true }}" options="{{ departments }}" hint-size="100%,72px"></x-import>
+</div>
+
+<div style="margin-top:24px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Field" label="Justification" required="{{ true }}" hint="Reference the site, the operation it supports, and why existing assets cannot cover it." hint-size="100%,160px">
+<textarea rows="5" placeholder="Site 2 crane fleet cannot cover the Q4 lifting schedule; two units are VOR awaiting parts." style="width:100%; box-sizing:border-box; resize:vertical; padding:12px 14px; font:var(--type-body-md); color:var(--text-primary); background:var(--surface-page); border:1px solid var(--border-default); border-radius:var(--radius-xs)"></textarea>
+</x-import>
+</div>
+
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:24px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Input" label="Estimated cost (SAR)" required="{{ true }}" placeholder="185,000" hint-size="100%,72px"></x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Input" label="Required by" placeholder="15 Oct 2026" hint-size="100%,72px"></x-import>
+</div>
+
+<div style="display:flex; align-items:center; justify-content:space-between; gap:16px; margin-top:36px; padding-top:24px; border-top:1px solid var(--border-subtle)">
+<span style="font:var(--type-body-sm); color:var(--text-tertiary)">Draft saved 12 minutes ago</span>
+<div style="display:flex; gap:12px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Button" variant="outline" hint-size="120px,40px">Save draft</x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Button" variant="primary" hint-size="180px,40px">Submit for approval</x-import>
+</div>
+</div>
+</div>
+
+<div style="background:var(--surface-card); border:1px solid var(--border-subtle); padding:32px">
+<h2 style="margin:0 0 28px; font:var(--type-title-sm); text-transform:uppercase; color:var(--text-primary)">Approval progress</h2>
+
+<div style="display:flex; gap:16px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:20px; height:20px; border-radius:50%; background:var(--status-success); display:flex; align-items:center; justify-content:center; color:#fff"><x-import component-from-global-scope="MAGDesignSystem_c47484.Icon" name="check" size="12" hint-size="12px,12px"></x-import></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:36px"></span>
+</div>
+<div style="padding-bottom:24px">
+<div style="font:var(--type-body-md); color:var(--text-primary)">Section head approval</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Approved 28 Aug 2026</div>
+</div>
+</div>
+
+<div style="display:flex; gap:16px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:20px; height:20px; border-radius:50%; border:3px solid var(--mag-orange); box-sizing:border-box; background:var(--surface-page)"></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:36px"></span>
+</div>
+<div style="padding-bottom:24px">
+<div style="font:var(--type-body-md); color:var(--text-primary)">Director support approval</div>
+<div style="font:var(--type-body-sm); color:var(--text-accent)">Current step — with A. Nasser</div>
+</div>
+</div>
+
+<div style="display:flex; gap:16px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:20px; height:20px; border-radius:50%; border:1px solid var(--border-default); box-sizing:border-box"></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:36px"></span>
+</div>
+<div style="padding-bottom:24px">
+<div style="font:var(--type-body-md); color:var(--text-tertiary)">Committee selects vendor</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Pending</div>
+</div>
+</div>
+
+<div style="display:flex; gap:16px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:20px; height:20px; border-radius:50%; border:1px solid var(--border-default); box-sizing:border-box"></span>
+</div>
+<div>
+<div style="font:var(--type-body-md); color:var(--text-tertiary)">Purchase order issued</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Pending</div>
+</div>
+</div>
+
+<div style="margin-top:32px; padding-top:24px; border-top:1px solid var(--border-subtle); display:flex; flex-direction:column; gap:6px">
+<span style="font:var(--type-label); letter-spacing:var(--tracking-label); text-transform:uppercase; color:var(--text-tertiary)">Raised by</span>
+<span style="font:var(--type-body-md); color:var(--text-primary)">M. Haddad — PMV workshop, Site 2</span>
+<span style="font:var(--type-body-sm); color:var(--text-tertiary)">27 Aug 2026</span>
+</div>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+<div class="dv-opt" id="1b">
+<div class="dv-olabel"><a class="dv-oid" href="#1b">1b</a>Mobile — 390 px</div>
+<div class="dv-card" style="width:390px">
+<div style="padding:28px 20px 40px; background:var(--surface-page); display:flex; flex-direction:column; gap:24px">
+
+<div style="display:flex; flex-direction:column; gap:14px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.SectionTab" number="02" trail="40" hint-size="200px,32px">Asset induction</x-import>
+<h1 style="margin:0; font:var(--type-title-md); letter-spacing:var(--tracking-title); text-transform:uppercase; color:var(--text-primary)">New asset request</h1>
+<div style="display:flex; align-items:center; gap:12px">
+<span style="font:var(--type-body-md); color:var(--text-primary)">AR-0142</span>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Badge" tone="accent" hint-size="100px,20px">In review</x-import>
+</div>
+</div>
+
+<div style="background:var(--surface-card); border:1px solid var(--border-subtle); border-top:2px solid var(--border-accent); padding:20px; display:flex; flex-direction:column; gap:20px">
+<h2 style="margin:0; font:var(--type-body-lg); font-weight:var(--weight-semibold); text-transform:uppercase; color:var(--text-primary)">Request details</h2>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Select" label="Asset type" required="{{ true }}" options="{{ assetTypes }}" hint-size="100%,72px"></x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Select" label="Department" required="{{ true }}" options="{{ departments }}" hint-size="100%,72px"></x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Field" label="Justification" required="{{ true }}" hint-size="100%,140px">
+<textarea rows="4" placeholder="Site 2 crane fleet cannot cover the Q4 lifting schedule." style="width:100%; box-sizing:border-box; resize:vertical; padding:12px 14px; font:var(--type-body-md); color:var(--text-primary); background:var(--surface-page); border:1px solid var(--border-default); border-radius:var(--radius-xs)"></textarea>
+</x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Input" label="Estimated cost (SAR)" required="{{ true }}" placeholder="185,000" hint-size="100%,72px"></x-import>
+</div>
+
+<div style="background:var(--surface-card); border:1px solid var(--border-subtle); padding:20px">
+<h2 style="margin:0 0 20px; font:var(--type-body-lg); font-weight:var(--weight-semibold); text-transform:uppercase; color:var(--text-primary)">Approval progress</h2>
+
+<div style="display:flex; gap:14px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:18px; height:18px; border-radius:50%; background:var(--status-success); display:flex; align-items:center; justify-content:center; color:#fff"><x-import component-from-global-scope="MAGDesignSystem_c47484.Icon" name="check" size="11" hint-size="11px,11px"></x-import></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:28px"></span>
+</div>
+<div style="padding-bottom:18px">
+<div style="font:var(--type-body-md); color:var(--text-primary)">Section head approval</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Approved 28 Aug 2026</div>
+</div>
+</div>
+
+<div style="display:flex; gap:14px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:18px; height:18px; border-radius:50%; border:3px solid var(--mag-orange); box-sizing:border-box"></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:28px"></span>
+</div>
+<div style="padding-bottom:18px">
+<div style="font:var(--type-body-md); color:var(--text-primary)">Director support approval</div>
+<div style="font:var(--type-body-sm); color:var(--text-accent)">Current step</div>
+</div>
+</div>
+
+<div style="display:flex; gap:14px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:18px; height:18px; border-radius:50%; border:1px solid var(--border-default); box-sizing:border-box"></span>
+<span style="flex:1; width:1px; background:var(--border-default); min-height:28px"></span>
+</div>
+<div style="padding-bottom:18px">
+<div style="font:var(--type-body-md); color:var(--text-tertiary)">Committee selects vendor</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Pending</div>
+</div>
+</div>
+
+<div style="display:flex; gap:14px">
+<div style="display:flex; flex-direction:column; align-items:center; padding-top:2px">
+<span style="width:18px; height:18px; border-radius:50%; border:1px solid var(--border-default); box-sizing:border-box"></span>
+</div>
+<div>
+<div style="font:var(--type-body-md); color:var(--text-tertiary)">Purchase order issued</div>
+<div style="font:var(--type-body-sm); color:var(--text-tertiary)">Pending</div>
+</div>
+</div>
+</div>
+
+<div style="display:flex; flex-direction:column; gap:10px">
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Button" variant="primary" full-width="{{ true }}" hint-size="100%,40px">Submit for approval</x-import>
+<x-import component-from-global-scope="MAGDesignSystem_c47484.Button" variant="outline" full-width="{{ true }}" hint-size="100%,40px">Save draft</x-import>
+</div>
+
+</div>
+</div>
+</div>
+
+</div>
+<p class="dv-next">Try next: "wireframe the VOR board and job card detail the same way" · "make the tracker in <a class="dv-oid" href="#1a">1a</a> horizontal" · "add the app shell around <a class="dv-oid" href="#1a">1a</a>"</p>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      assetTypes: [
+        { value: "", label: "Select asset type" },
+        { value: "crane", label: "Mobile crane" },
+        { value: "tipper", label: "Tipper truck" },
+        { value: "loader", label: "Wheel loader" },
+        { value: "bus", label: "Staff bus" },
+        { value: "genset", label: "Generator set" }
+      ],
+      departments: [
+        { value: "", label: "Select department" },
+        { value: "pmv", label: "PMV — plant, machinery & vehicles" },
+        { value: "ops", label: "Operations — Site 2" },
+        { value: "fm", label: "Facilities management" },
+        { value: "logistics", label: "Logistics" }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

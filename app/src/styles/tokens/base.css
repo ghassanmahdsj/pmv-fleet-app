@@ -1,0 +1,52 @@
+/* Minimal element defaults so a bare page already looks like MAG. */
+*, *::before, *::after { box-sizing: border-box; }
+body {
+  margin: 0;
+  font: var(--type-body-md);
+  color: var(--text-primary);
+  background: var(--surface-page);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+h1, h2, h3, h4 { font-family: var(--font-title); font-weight: var(--weight-bold); line-height: var(--leading-title); margin: 0 0 var(--space-4); text-wrap: pretty; }
+h1 { font-size: var(--text-title-xl); text-transform: uppercase; letter-spacing: var(--tracking-title); }
+h2 { font-size: var(--text-title-lg); text-transform: uppercase; letter-spacing: var(--tracking-title); }
+h3 { font-size: var(--text-title-md); font-weight: var(--weight-semibold); }
+h4 { font-size: var(--text-title-sm); font-weight: var(--weight-semibold); }
+p { margin: 0 0 var(--space-4); max-width: var(--layout-measure); text-wrap: pretty; }
+a { color: var(--text-link); text-decoration: none; border-bottom: 1px solid var(--mag-orange-50); transition: var(--transition-control); }
+a:hover { color: var(--text-link-hover); border-bottom-color: var(--text-link-hover); }
+small { font: var(--type-body-sm); color: var(--text-secondary); }
+hr { border: 0; border-top: var(--border-hairline) solid var(--border-subtle); margin: var(--space-8) 0; }
+::selection { background: var(--mag-orange-25); color: var(--mag-black); }
+
+/* Arabic / RTL: swap the type stack, keep everything else. */
+[lang="ar"], [dir="rtl"] {
+  --font-title: var(--font-arabic-title);
+  --font-body: var(--font-arabic-body);
+}
+
+/* The brand's signature section tab: an open orange pill whose baseline runs on
+   past the label. Used at the top of every guideline page. */
+.mag-section-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font: var(--type-label);
+  letter-spacing: var(--tracking-tab);
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-hairline) solid var(--border-accent);
+  border-right: 0;
+  border-radius: var(--radius-pill) 0 0 var(--radius-pill);
+  position: relative;
+}
+.mag-section-tab::after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  bottom: -1px;
+  width: 64px;
+  border-bottom: var(--border-hairline) solid var(--border-accent);
+}

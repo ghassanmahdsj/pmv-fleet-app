@@ -1,0 +1,30 @@
+/* 4px base grid. The guidelines lay out on a wide, airy print grid, so the
+   large steps are deliberately generous. */
+:root {
+  --space-0: 0;
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+  --space-24: 96px;
+  --space-32: 128px;
+
+  /* Page framing, taken from the guideline page margins (approx. 1/12 of width) */
+  --layout-gutter: var(--space-6);
+  --layout-margin: var(--space-16);
+  --layout-margin-wide: var(--space-24);
+  --layout-max: 1280px;
+  --layout-measure: 46ch;   /* body copy column in the guidelines is narrow */
+
+  /* Control heights */
+  --control-sm: 32px;
+  --control-md: 40px;
+  --control-lg: 48px;
+}

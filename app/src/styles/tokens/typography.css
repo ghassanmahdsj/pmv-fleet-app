@@ -1,0 +1,58 @@
+/* MAG typography. Four roles, mirrored across Latin and Arabic.
+   Substituted families are marked; see readme.md → Font substitutions. */
+:root {
+  /* ---- Families ---- */
+  --font-display: "Michroma", "Good Times HV", "Saira", sans-serif;      /* logo / wordmark only */
+  --font-title: "Saira", "Prometo", "Helvetica Neue", sans-serif;         /* headings */
+  --font-body: "Montserrat", "Gotham", "Helvetica Neue", sans-serif;      /* body copy, UI */
+  --font-arabic-title: "Cairo", sans-serif;                              /* real brand face */
+  --font-arabic-body: "IBM Plex Sans Arabic", "DIN Next LT Arabic", sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;          /* not brand-defined */
+
+  /* ---- Weights ---- */
+  --weight-light: 300;   /* Gotham Light */
+  --weight-regular: 400; /* Gotham Book / Prometo Regular */
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;    /* Prometo Bold / Cairo Bold */
+
+  /* ---- Size scale (px) ----
+     The guidelines pair very large uppercase titles with unusually small,
+     light body copy. Both extremes are preserved here. */
+  --text-display-xl: 88px;
+  --text-display-lg: 64px;
+  --text-title-xl: 48px;
+  --text-title-lg: 36px;
+  --text-title-md: 28px;
+  --text-title-sm: 22px;
+  --text-body-lg: 16px;
+  --text-body-md: 14px;
+  --text-body-sm: 12px;
+  --text-label: 11px;
+  --text-micro: 9px;
+
+  /* ---- Line heights ---- */
+  --leading-tight: 1;
+  --leading-title: 1.1;
+  --leading-snug: 1.35;
+  --leading-body: 1.55;
+  --leading-loose: 1.8;
+
+  /* ---- Tracking ----
+     Section tabs and small labels are widely tracked; large titles are not. */
+  --tracking-title: 0.01em;
+  --tracking-body: 0;
+  --tracking-label: 0.12em;
+  --tracking-tab: 0.16em;
+
+  /* ---- Composed roles ---- */
+  --type-display: var(--weight-regular) var(--text-display-lg) / var(--leading-tight) var(--font-display);
+  --type-title-xl: var(--weight-bold) var(--text-title-xl) / var(--leading-title) var(--font-title);
+  --type-title-lg: var(--weight-bold) var(--text-title-lg) / var(--leading-title) var(--font-title);
+  --type-title-md: var(--weight-semibold) var(--text-title-md) / var(--leading-snug) var(--font-title);
+  --type-title-sm: var(--weight-semibold) var(--text-title-sm) / var(--leading-snug) var(--font-title);
+  --type-body-lg: var(--weight-regular) var(--text-body-lg) / var(--leading-body) var(--font-body);
+  --type-body-md: var(--weight-regular) var(--text-body-md) / var(--leading-body) var(--font-body);
+  --type-body-sm: var(--weight-light) var(--text-body-sm) / var(--leading-body) var(--font-body);
+  --type-label: var(--weight-medium) var(--text-label) / var(--leading-snug) var(--font-body);
+}

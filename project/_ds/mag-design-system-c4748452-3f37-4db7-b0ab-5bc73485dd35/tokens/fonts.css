@@ -1,0 +1,6 @@
+/* MAG webfonts.
+   The brand fonts (Good Times HV, Prometo, Gotham, DIN Next LT Arabic) are licensed
+   and were NOT supplied with the guidelines. Each is substituted with the closest
+   Google Font below. Cairo is the real brand Arabic title face and is available on
+   Google Fonts, so it is NOT a substitution. See readme.md → Font substitutions. */
+@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Saira:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&family=Cairo:wght@400;600;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600;700&display=swap");

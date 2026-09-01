@@ -1,0 +1,23 @@
+/* Shape and depth.
+   The brand is square-cornered and flat: the wordmark is a squared techno face,
+   swatches are perfect circles, colour bands are hard-edged rectangles, and the
+   only curve in the whole document is the pill-shaped section tab. Shadows do not
+   appear anywhere in the guidelines — the two below exist only because interactive
+   UI needs overlay separation. Prefer a hairline border over a shadow. */
+:root {
+  --radius-none: 0;
+  --radius-xs: 2px;
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  --border-hairline: 1px;
+  --border-thick: 2px;
+
+  --shadow-none: none;
+  --shadow-overlay: 0 2px 8px rgb(35 35 23 / 0.08);
+  --shadow-dialog: 0 16px 48px rgb(35 35 23 / 0.18);
+
+  --scrim-blur: 6px;
+}

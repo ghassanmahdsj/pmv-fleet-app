@@ -1,0 +1,76 @@
+.approval-tracker {
+  --tracker-node-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.approval-tracker__row {
+  display: flex;
+  gap: var(--space-4);
+}
+
+.approval-tracker__rail {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 2px;
+}
+
+.approval-tracker__node {
+  width: var(--tracker-node-size);
+  height: var(--tracker-node-size);
+  border-radius: var(--radius-circle);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+}
+
+.approval-tracker__node--done {
+  background: var(--status-success);
+}
+
+.approval-tracker__node--current {
+  border: 3px solid var(--mag-orange);
+  background: var(--surface-page);
+}
+
+.approval-tracker__node--pending {
+  border: 1px solid var(--border-default);
+}
+
+.approval-tracker__line {
+  flex: 1;
+  width: 1px;
+  background: var(--border-default);
+  min-height: 36px;
+}
+
+.approval-tracker__body {
+  padding-bottom: var(--space-6);
+}
+
+.approval-tracker__row:last-child .approval-tracker__body {
+  padding-bottom: 0;
+}
+
+.approval-tracker__label {
+  font: var(--type-body-md);
+}
+
+.approval-tracker__caption {
+  font: var(--type-body-sm);
+}
+
+@media (max-width: 900px) {
+  .approval-tracker {
+    --tracker-node-size: 18px;
+  }
+  .approval-tracker__line {
+    min-height: 28px;
+  }
+  .approval-tracker__body {
+    padding-bottom: var(--space-5);
+  }
+}
