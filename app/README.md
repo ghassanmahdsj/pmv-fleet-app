@@ -4,10 +4,11 @@ Frontend implementation of the "New asset request" screen from the MAG PMV
 Fleet & Asset Lifecycle app, built from the Claude Design handoff bundle at
 the repo root (`README.md`, `chats/`, `project/`).
 
-Stack: React + TypeScript + Vite. No backend yet — see the repo-root
-conversation for the planned architecture (a separate API service owning
-the app's data plus an integration façade to Oracle Asset Management and
-the GPS/telematics provider).
+Stack: React + TypeScript + Vite. No API layer yet — see `../server/` for
+the database (PostgreSQL + Prisma) that backs the asset process, and the
+repo-root conversation for the planned wider architecture (a separate API
+service owning the app's data plus an integration façade to Oracle Asset
+Management and the GPS/telematics provider).
 
 ## Layout
 

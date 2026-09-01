@@ -1,0 +1,284 @@
+// PMV Fleet & Asset Lifecycle — database schema.
+// Covers the asset lifecycle scope from the design spec: asset register,
+// new asset request + approval, VOR / job cards, and disposal cases.
+// Purchase requisition (LOA), petty cash and HR modules are out of scope —
+// see MAG_PMV_Fleet_App_Design_Spec.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ---------------------------------------------------------------------------
+// Lookups
+// ---------------------------------------------------------------------------
+
+model Department {
+  id            Int            @id @default(autoincrement())
+  name          String         @unique
+  assetRequests AssetRequest[]
+
+  @@map("departments")
+}
+
+model Site {
+  id     Int     @id @default(autoincrement())
+  name   String  @unique
+  assets Asset[]
+
+  @@map("sites")
+}
+
+model User {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  department String?
+  role       String?
+  createdAt  DateTime @default(now())
+
+  raisedAssetRequests     AssetRequest[]     @relation("AssetRequestRaisedBy")
+  openedJobCards          JobCard[]          @relation("JobCardOpenedBy")
+  initiatedDisposalCases  DisposalCase[]     @relation("DisposalCaseInitiatedBy")
+  assetRequestStepActions AssetRequestStep[]
+  jobCardStepActions      JobCardStep[]
+  disposalCaseStepActions DisposalCaseStep[]
+
+  @@map("users")
+}
+
+enum StepStatus {
+  done
+  current
+  pending
+}
+
+// ---------------------------------------------------------------------------
+// Asset register (Screen 5) — source of truth other screens filter down from
+// ---------------------------------------------------------------------------
+
+enum AssetStatus {
+  active
+  vor
+  disposal_pending
+}
+
+model Asset {
+  id              Int         @id @default(autoincrement())
+  code            String      @unique // display id, e.g. PMV-0876
+  magIdTag        String      @unique
+  type            String
+  siteId          Int
+  site            Site        @relation(fields: [siteId], references: [id])
+  status          AssetStatus @default(active)
+  lastServiceDate DateTime?
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  jobCards      JobCard[]
+  disposalCases DisposalCase[]
+  activityLog   ActivityLogEntry[]
+
+  @@index([status])
+  @@index([siteId])
+  @@map("assets")
+}
+
+// ---------------------------------------------------------------------------
+// New asset request (Screen 2) — section head -> director support ->
+// committee selects vendor -> purchase order issued
+// ---------------------------------------------------------------------------
+
+enum RequestStatus {
+  draft
+  in_review
+  approved
+  rejected
+}
+
+model AssetRequest {
+  id               Int           @id @default(autoincrement())
+  code             String        @unique // display id, e.g. AR-0142
+  assetType        String
+  departmentId     Int
+  department       Department    @relation(fields: [departmentId], references: [id])
+  justification    String
+  estimatedCostSar Decimal       @db.Decimal(12, 2)
+  status           RequestStatus @default(draft)
+  currentStage     String?
+  raisedById       Int
+  raisedBy         User          @relation("AssetRequestRaisedBy", fields: [raisedById], references: [id])
+  raisedAt         DateTime      @default(now())
+  updatedAt        DateTime      @updatedAt
+
+  steps       AssetRequestStep[]
+  activityLog ActivityLogEntry[]
+
+  @@index([status])
+  @@index([departmentId])
+  @@map("asset_requests")
+}
+
+model AssetRequestStep {
+  id             Int          @id @default(autoincrement())
+  assetRequestId Int
+  assetRequest   AssetRequest @relation(fields: [assetRequestId], references: [id], onDelete: Cascade)
+  stepOrder      Int
+  name           String
+  status         StepStatus   @default(pending)
+  actedById      Int?
+  actedBy        User?        @relation(fields: [actedById], references: [id])
+  actedAt        DateTime?
+  note           String?
+
+  @@unique([assetRequestId, stepOrder])
+  @@map("asset_request_steps")
+}
+
+// ---------------------------------------------------------------------------
+// Job cards (Screens 3 & 4) — VOR board + drill-down into workshop progress
+// ---------------------------------------------------------------------------
+
+enum JobCardStatus {
+  marked_vor
+  repair_in_progress
+  awaiting_parts
+  closed
+}
+
+model JobCard {
+  id                     Int           @id @default(autoincrement())
+  code                   String        @unique // display id, e.g. JC-0231
+  assetId                Int
+  asset                  Asset         @relation(fields: [assetId], references: [id])
+  faultDescription       String
+  status                 JobCardStatus @default(marked_vor)
+  currentStage           String?
+  purchaseRequisitionRef String?
+  urgency                String?
+  openedById             Int
+  openedBy               User          @relation("JobCardOpenedBy", fields: [openedById], references: [id])
+  openedAt               DateTime      @default(now())
+  vorStartedAt           DateTime      @default(now())
+  vorEndedAt             DateTime?
+  updatedAt              DateTime      @updatedAt
+
+  parts       JobCardPart[]
+  steps       JobCardStep[]
+  activityLog ActivityLogEntry[]
+
+  @@index([status])
+  @@index([assetId])
+  @@map("job_cards")
+}
+
+enum PartStatus {
+  ordered
+  in_stock_released
+}
+
+model JobCardPart {
+  id        Int        @id @default(autoincrement())
+  jobCardId Int
+  jobCard   JobCard    @relation(fields: [jobCardId], references: [id], onDelete: Cascade)
+  name      String
+  status    PartStatus @default(ordered)
+  etaDate   DateTime?
+
+  @@map("job_card_parts")
+}
+
+model JobCardStep {
+  id        Int        @id @default(autoincrement())
+  jobCardId Int
+  jobCard   JobCard    @relation(fields: [jobCardId], references: [id], onDelete: Cascade)
+  stepOrder Int
+  name      String
+  status    StepStatus @default(pending)
+  actedById Int?
+  actedBy   User?      @relation(fields: [actedById], references: [id])
+  actedAt   DateTime?
+  note      String?
+
+  @@unique([jobCardId, stepOrder])
+  @@map("job_card_steps")
+}
+
+// ---------------------------------------------------------------------------
+// Disposal cases (Screens 6 & 7) — technical review -> manager recommendation
+// -> Group CEO consent -> 3 quotes -> committee decision -> write-off
+// ---------------------------------------------------------------------------
+
+model DisposalCase {
+  id                Int      @id @default(autoincrement())
+  code              String   @unique // display id, e.g. DS-0053
+  assetId           Int
+  asset             Asset    @relation(fields: [assetId], references: [id])
+  initiatedById     Int
+  initiatedBy       User     @relation("DisposalCaseInitiatedBy", fields: [initiatedById], references: [id])
+  initiatedAt       DateTime @default(now())
+  currentStage      String?
+  committeeDecision String?
+  updatedAt         DateTime @updatedAt
+
+  quotations  DisposalQuotation[]
+  steps       DisposalCaseStep[]
+  activityLog ActivityLogEntry[]
+
+  @@index([assetId])
+  @@map("disposal_cases")
+}
+
+model DisposalQuotation {
+  id             Int          @id @default(autoincrement())
+  disposalCaseId Int
+  disposalCase   DisposalCase @relation(fields: [disposalCaseId], references: [id], onDelete: Cascade)
+  vendorName     String
+  note           String?
+  amountSar      Decimal      @db.Decimal(12, 2)
+  isRecommended  Boolean      @default(false)
+
+  @@map("disposal_quotations")
+}
+
+model DisposalCaseStep {
+  id             Int          @id @default(autoincrement())
+  disposalCaseId Int
+  disposalCase   DisposalCase @relation(fields: [disposalCaseId], references: [id], onDelete: Cascade)
+  stepOrder      Int
+  name           String
+  status         StepStatus   @default(pending)
+  actedById      Int?
+  actedBy        User?        @relation(fields: [actedById], references: [id])
+  actedAt        DateTime?
+  note           String?
+
+  @@unique([disposalCaseId, stepOrder])
+  @@map("disposal_case_steps")
+}
+
+// ---------------------------------------------------------------------------
+// Dashboard (Screen 1) — recent activity feed shared across all four
+// processes; exactly one of the FKs below is set per row.
+// ---------------------------------------------------------------------------
+
+model ActivityLogEntry {
+  id             Int           @id @default(autoincrement())
+  message        String
+  assetId        Int?
+  asset          Asset?        @relation(fields: [assetId], references: [id])
+  assetRequestId Int?
+  assetRequest   AssetRequest? @relation(fields: [assetRequestId], references: [id])
+  jobCardId      Int?
+  jobCard        JobCard?      @relation(fields: [jobCardId], references: [id])
+  disposalCaseId Int?
+  disposalCase   DisposalCase? @relation(fields: [disposalCaseId], references: [id])
+  occurredAt     DateTime      @default(now())
+
+  @@index([occurredAt])
+  @@map("activity_log_entries")
+}
